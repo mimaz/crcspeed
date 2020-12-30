@@ -1,4 +1,5 @@
 crcspeed-test
-crc16speed
-crc64speed
+crc16speed-test
+crc64speed-test
 attempts*
+build/
