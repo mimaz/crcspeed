@@ -8,6 +8,12 @@ lib = both_libraries(meson.project_name(),
   'crcspeed.c',
   install: true)
 
+dep = declare_dependency(link_with: lib,
+  include_directories: '.')
+
+dep_static = declare_dependency(link_with: lib.get_static_lib(),
+  include_directories: '.')
+
 install_headers(
   'crc16speed.h',
   'crc64speed.h',
@@ -16,7 +22,7 @@ install_headers(
 
 executable(meson.project_name(),
   'main.c',
-  link_with: lib,
+  dependencies: dep,
   install: false)
 
 executable('crc64speed-test',
@@ -44,3 +50,6 @@ pkg.generate(lib.get_static_lib(),
   version: meson.project_version(),
   name: 'crcspeed-static',
   description: 'crcspeed library (static)')
+
+meson.override_dependency('crcspeed', dep)
+meson.override_dependency('crcspeed-static', dep_static)
