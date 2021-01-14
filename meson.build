@@ -20,22 +20,24 @@ install_headers(
   'crcspeed.h',
   subdir: 'crcspeed')
 
-executable(meson.project_name(),
-  'main.c',
-  dependencies: dep,
-  install: false)
+if get_option('test')
+  executable(meson.project_name(),
+    'main.c',
+    dependencies: dep,
+    install: false)
 
-executable('crc64speed-test',
-  'crcspeed.c',
-  'crc64speed.c',
-  c_args: '-DREDIS_TEST_MAIN',
-  install: false)
+  executable('crc64speed-test',
+    'crcspeed.c',
+    'crc64speed.c',
+    c_args: '-DREDIS_TEST_MAIN',
+    install: false)
 
-executable('crc16speed-test',
-  'crcspeed.c',
-  'crc16speed.c',
-  c_args: '-DREDIS_TEST_MAIN',
-  install: false)
+  executable('crc16speed-test',
+    'crcspeed.c',
+    'crc16speed.c',
+    c_args: '-DREDIS_TEST_MAIN',
+    install: false)
+endif
 
 pkg = import('pkgconfig')
 
